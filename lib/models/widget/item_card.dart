@@ -24,7 +24,13 @@ class ItemCard extends StatelessWidget {
               },
               child: Text('Cancle'),
             ),
-            TextButton(onPressed: onDelete, child: Text('Delete')),
+            TextButton(
+              onPressed: () {
+                Navigator.pop(ctx);
+                onDelete();
+              },
+              child: Text('Delete'),
+            ),
           ],
         ),
       );
