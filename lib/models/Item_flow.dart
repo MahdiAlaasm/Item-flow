@@ -32,6 +32,12 @@ class _ItemflowState extends State<Itemflow> {
     });
   }
 
+  void deleteItem(Information item) {
+    setState(() {
+      items.remove(item);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -65,7 +71,9 @@ class _ItemflowState extends State<Itemflow> {
               ],
             ),
 
-            Expanded(child: ItemList(informations: items)),
+            Expanded(
+              child: ItemList(informations: items, onDeleteItem: deleteItem),
+            ),
           ],
         ),
       ),

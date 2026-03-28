@@ -4,12 +4,32 @@ import 'package:item_flow/data/information.dart';
 import 'package:item_flow/models/widget/item_card_info.dart';
 
 class ItemCard extends StatelessWidget {
-  const ItemCard(this.info, {super.key});
+  const ItemCard({super.key, required this.info, required this.onDelete});
 
   final Information info;
+  final VoidCallback onDelete;
 
   @override
   Widget build(BuildContext context) {
+    void confirmDeleting() {
+      showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: Text('Delete Item '),
+          content: Text('Confirm Deleting ${info.name}'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(ctx);
+              },
+              child: Text('Cancle'),
+            ),
+            TextButton(onPressed: onDelete, child: Text('Delete')),
+          ],
+        ),
+      );
+    }
+
     return Card(
       margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       color: Colors.white,
@@ -62,7 +82,7 @@ class ItemCard extends StatelessWidget {
                   Spacer(),
                   IconButton(onPressed: () {}, icon: Icon(Icons.edit_square)),
                   IconButton(
-                    onPressed: () {},
+                    onPressed: confirmDeleting,
                     icon: Icon(Icons.delete_rounded),
                   ),
                 ],
